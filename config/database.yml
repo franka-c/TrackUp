@@ -81,6 +81,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
     database: trek_up_production
     username: trek_up
     password: <%= ENV["TREK_UP_DATABASE_PASSWORD"] %>

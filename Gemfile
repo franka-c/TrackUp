@@ -62,7 +62,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'administrate', github: 'thoughtbot/administrate'
+gem "administrate", github: "thoughtbot/administrate"
 
 gem "devise", "~> 4.9"
 

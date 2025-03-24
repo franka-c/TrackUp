@@ -1,3 +1,5 @@
+
+require "administrate/base_dashboard"
 class ParticipantDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,

@@ -69,3 +69,5 @@ gem "devise", "~> 4.9"
 gem "tailwindcss-rails", "~> 4.2"
 
 gem "csv", "~> 3.3"
+gem "importmap-rails"
+

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users, skip: [ :registrations ], controllers: {
+    sessions: "devise/sessions"
+  }
   root "participants#new"  # Show the sign-up form on the homepage
   resources :participants, only: [ :new, :create, :index ] do
     collection do

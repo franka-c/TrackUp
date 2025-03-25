@@ -14,8 +14,10 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <%= stylesheet_link_tag :"application.tailwind", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", defer: true %>
+  <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+
+
 </head>
 
 
@@ -23,6 +25,12 @@
   <header class="bg-white shadow-sm py-4">
     <%= image_tag "snopljak1.png", alt: "Trek Up Logo", class: "mx-auto h-20" %>
   </header>
+  <% if user_signed_in? %>
+    <div class="absolute top-4 right-4">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete,
+                  class: "text-sm bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md shadow transition" %>
+    </div>
+  <% end %>
     <main class="container mx-auto mt-10 px-5 flex">
       <%= yield %>
     </main>

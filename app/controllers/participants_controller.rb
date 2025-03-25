@@ -1,6 +1,6 @@
 require 'csv'
 class ParticipantsController < ApplicationController
-  #before_action :authenticate_admin!, only: :index  # Restrict admin access
+  before_action :authenticate_user!, only: [ :index ]
 
   def new
     @participant = Participant.new
@@ -42,9 +42,9 @@ class ParticipantsController < ApplicationController
   end
   def generate_csv(participants)
     CSV.generate(headers: true) do |csv|
-      csv << ["ID", "Name", "Surname", "Email", "Phone", "Trek type", "Created At"] # Column headers
+      csv << [ "ID", "Name", "Surname", "Email", "Phone", "Trek type", "Created At" ] # Column headers
       participants.each do |participant|
-        csv << [participant.id, participant.name, participant.surname, participant.email, participant.phone, participant.trek_type, participant.created_at]
+        csv << [ participant.id, participant.name, participant.surname, participant.email, participant.phone, participant.trek_type, participant.created_at ]
       end
     end
   end

@@ -16,23 +16,52 @@
 
   <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
-
-
 </head>
 
+<body class="bg-white">
+<header class="relative bg-white shadow-sm py-4">
+  <!-- Centered Logo -->
+  <div class="flex justify-center">
+    <%= image_tag "snopljak1.png", alt: "Trek Up Logo", class: "h-20" %>
+  </div>
 
-  <body>
-  <header class="bg-white shadow-sm py-4">
-    <%= image_tag "snopljak1.png", alt: "Trek Up Logo", class: "mx-auto h-20" %>
-  </header>
   <% if user_signed_in? %>
-    <div class="absolute top-4 right-4">
+    <!-- Desktop Logout -->
+    <div class="hidden md:block absolute top-4 right-4">
       <%= link_to "Logout", destroy_user_session_path, method: :delete,
                   class: "text-sm bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md shadow transition" %>
     </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="block md:hidden absolute top-4 right-4">
+      <button id="mobileMenuToggle" class="text-xl focus:outline-none">&#9776;</button>
+    </div>
   <% end %>
-    <main class="container mx-auto mt-10 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+</header>
+
+<% if user_signed_in? %>
+  <!-- Mobile Logout Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md px-4 py-2">
+    <%= link_to "Logout", destroy_user_session_path, method: :delete,
+                class: "block text-sm text-gray-800 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition" %>
+  </div>
+<% end %>
+
+<main class="container mx-auto mt-10 px-5 flex">
+  <%= yield %>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggle = document.getElementById("mobileMenuToggle");
+        const menu = document.getElementById("mobileMenu");
+
+        if (toggle && menu) {
+            toggle.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+        }
+    });
+</script>
+</body>
 </html>

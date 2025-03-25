@@ -38,7 +38,7 @@ class ParticipantsController < ApplicationController
   end
   private
   def participant_params
-    params.require(:participant).permit(:name, :surname, :email, :phone)
+    params.require(:participant).permit(:name, :surname, :email, :phone, :trek_type)
   end
   def generate_csv(participants)
     CSV.generate(headers: true) do |csv|

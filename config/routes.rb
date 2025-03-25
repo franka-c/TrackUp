@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root "participants#new"  # Show the sign-up form on the homepage
-  resources :participants, only: [:new, :create, :index] do
+  resources :participants, only: [ :new, :create, :index ] do
     collection do
-      get :export # Define export action
+      get :thank_you
+      get :export
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

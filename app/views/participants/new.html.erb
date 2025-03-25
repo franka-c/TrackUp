@@ -1,6 +1,15 @@
 <div class="max-w-3xl mx-auto text-center">
   <h1 class="text-3xl font-bold text-gray-800 mb-2">Sign Up for Brk Race</h1>
-
+  <% if @participant.errors.any? %>
+    <div class="bg-red-100 text-red-800 p-4 rounded-lg mb-4">
+      <h2 class="font-bold mb-2">Please fix the following:</h2>
+      <ul class="list-disc list-inside text-left">
+        <% @participant.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
     <%= form_with(model: @participant, local: true, class: "space-y-4") do |form| %>
 

@@ -1,0 +1,18 @@
+<div class="max-w-2xl mx-auto mt-20 text-center">
+  <% if notice %>
+    <div class="mb-6 text-green-800 font-semibold bg-green-100 p-3 rounded-lg shadow">
+      <%= notice %>
+    </div>
+  <% end %>
+  <h2 class="text-2xl font-bold text-green-800 mb-4">You're all set!</h2>
+  <p class="text-lg text-gray-700 mb-6">Thanks for signing up for the BRK Race. We’ll see you at the starting line!</p>
+
+  <%= link_to "https://kekspay.hr/joinevent?eventCode=HToMaveDet", target: "_blank" do %>
+    <%= image_tag "keks.png", alt: "View race info", class: "mx-auto mb-6 rounded-xl shadow-md w-32 hover:opacity-90 transition" %>
+  <% end %>
+
+
+  <a href="https://example.com/race-info" target="_blank" class="inline-block bg-green-800 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition">
+    View Race Info
+  </a>
+</div>

@@ -7,16 +7,26 @@ class ParticipantsController < ApplicationController
   end
 
   def create
-    @participant = Participant.new(participant_params)
-    if @participant.save
-      redirect_to root_path, notice: "Successfully signed up!"
+    existing = Participant.find_by(email: participant_params[:email])
+
+    if existing
+      redirect_to thank_you_participants_path, notice: "You've already signed up!"
     else
-      render :new
+      @participant = Participant.new(participant_params)
+      if @participant.save
+        redirect_to thank_you_participants_path, notice: "Successfully signed up!"
+      else
+        render :new
+      end
     end
   end
 
+
   def index
     @participants = Participant.all.order(created_at: :desc)
+  end
+
+  def thank_you
   end
 
   def export

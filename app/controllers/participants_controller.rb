@@ -36,15 +36,27 @@ class ParticipantsController < ApplicationController
       format.csv { send_data generate_csv(@participants), filename: "participants-#{Date.today}.csv" }
     end
   end
+  def toggle_payment
+    participant = Participant.find(params[:id])
+    field = params[:field]
+    value = ActiveModel::Type::Boolean.new.cast(params[:value])
+
+    if %w[paid_signup_fee paid_entry_fee].include?(field)
+      participant.update(field => value)
+      head :ok
+    else
+      head :unprocessable_entity
+    end
+  end
   private
   def participant_params
-    params.require(:participant).permit(:name, :surname, :email, :phone, :trek_type)
+    params.require(:participant).permit(:name, :surname, :email, :phone, :trek_type, :paid_signup_fee, :paid_entry_fee)
   end
   def generate_csv(participants)
     CSV.generate(headers: true) do |csv|
-      csv << [ "ID", "Name", "Surname", "Email", "Phone", "Trek type", "Created At" ] # Column headers
+      csv << [ "ID", "Name", "Surname", "Email", "Phone", "Trek type", "Paid Sign Up", "Paid Entry" "Created At" ] # Column headers
       participants.each do |participant|
-        csv << [ participant.id, participant.name, participant.surname, participant.email, participant.phone, participant.trek_type, participant.created_at ]
+        csv << [ participant.id, participant.name, participant.surname, participant.email, participant.phone, participant.trek_type, participant.paid_signup_fee, participant.paid_entry_fee, participant.created_at ]
       end
     end
   end

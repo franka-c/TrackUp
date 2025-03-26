@@ -18,6 +18,8 @@
         <th class="px-4 py-2 text-left text-gray-600">Email</th>
         <th class="px-4 py-2 text-left text-gray-600">Phone</th>
         <th class="px-4 py-2 text-left text-gray-600">Trek type</th>
+        <th class="px-4 py-2 text-left text-gray-600">Signup Paid</th>
+        <th class="px-4 py-2 text-left text-gray-600">Entry Paid</th>
       </tr>
       </thead>
       <tbody class="divide-y divide-gray-300">
@@ -29,9 +31,54 @@
           <td class="px-4 py-2"><%= participant.email %></td>
           <td class="px-4 py-2"><%= participant.phone %></td>
           <td class="px-4 py-2"><%= participant.trek_type %></td>
+          <td class="px-4 py-2 text-center">
+            <div class="inline-flex items-center gap-2">
+              <%= check_box_tag "paid_signup_fee_#{participant.id}", true, participant.paid_signup_fee,
+                                onchange: "updatePaymentFlag(this, #{participant.id}, 'paid_signup_fee')" %>
+              <span id="status-<%= participant.id %>-paid_signup_fee" class="text-green-600 text-sm opacity-0 transition-opacity duration-300">✅</span>
+            </div>
+          </td>
+
+          <td class="px-4 py-2 text-center">
+            <div class="inline-flex items-center gap-2">
+              <%= check_box_tag "paid_entry_fee_#{participant.id}", true, participant.paid_entry_fee,
+                                onchange: "updatePaymentFlag(this, #{participant.id}, 'paid_entry_fee')" %>
+              <span id="status-<%= participant.id %>-paid_entry_fee" class="text-green-600 text-sm opacity-0 transition-opacity duration-300">✅</span>
+            </div>
+          </td>
         </tr>
       <% end %>
       </tbody>
     </table>
   </div>
 </div>
+<script>
+    function updatePaymentFlag(checkbox, participantId, field) {
+        const checked = checkbox.checked;
+        const statusSpanId = `status-${participantId}-${field}`;
+        const statusSpan = document.getElementById(statusSpanId);
+
+        fetch(`/participants/${participantId}/toggle_payment`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+            },
+            body: JSON.stringify({ field: field, value: checked })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Show the visual "saved" indicator
+                    statusSpan.classList.remove("opacity-0");
+                    setTimeout(() => {
+                        statusSpan.classList.add("opacity-0");
+                    }, 1200);
+                } else {
+                    console.error("Update failed with status:", response.status);
+                }
+            })
+            .catch(error => {
+                console.error("Network error:", error);
+            });
+    }
+</script>

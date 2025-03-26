@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :thank_you
       get :export
     end
+    patch :toggle_payment, on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

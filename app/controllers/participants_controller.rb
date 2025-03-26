@@ -48,6 +48,11 @@ class ParticipantsController < ApplicationController
       head :unprocessable_entity
     end
   end
+  def destroy
+    participant = Participant.find(params[:id])
+    participant.destroy
+    redirect_to participants_path, notice: "Participant deleted."
+  end
   private
   def participant_params
     params.require(:participant).permit(:name, :surname, :email, :phone, :trek_type, :paid_signup_fee, :paid_entry_fee)

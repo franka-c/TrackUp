@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     sessions: "devise/sessions"
   }
   root "participants#new"  # Show the sign-up form on the homepage
-  resources :participants, only: [ :new, :create, :index ] do
+  resources :participants, only: [ :new, :create, :index, :destroy ] do
     collection do
       get :thank_you
       get :export

@@ -22,7 +22,9 @@
 <header class="relative bg-white shadow-sm py-4">
   <!-- Centered Logo -->
   <div class="flex justify-center">
-    <%= image_tag "snopljak1.png", alt: "Trek Up Logo", class: "h-20" %>
+    <%= link_to "https://snopljak.com/", class: "hover:opacity-90 transition", target: "_blank", rel: "noopener" do %>
+      <%= image_tag "snopljak1.png", alt: "Trek Up Logo", class: "h-20" %>
+    <% end %>
   </div>
 
   <% if user_signed_in? %>

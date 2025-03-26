@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto text-center">
+<div class="max-w-5xl mx-auto text-center">
   <h1 class="text-3xl font-bold text-gray-800 mb-2">Participants List</h1>
 
   <div class="mb-4">
@@ -8,7 +8,7 @@
     </a>
   </div>
 
-  <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+  <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 overflow-x-auto">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-100">
       <tr>
@@ -38,7 +38,6 @@
               <span id="status-<%= participant.id %>-paid_signup_fee" class="text-green-600 text-sm opacity-0 transition-opacity duration-300">✅</span>
             </div>
           </td>
-
           <td class="px-4 py-2 text-center">
             <div class="inline-flex items-center gap-2">
               <%= check_box_tag "paid_entry_fee_#{participant.id}", true, participant.paid_entry_fee,
@@ -52,6 +51,7 @@
     </table>
   </div>
 </div>
+
 <script>
     function updatePaymentFlag(checkbox, participantId, field) {
         const checked = checkbox.checked;
@@ -68,7 +68,6 @@
         })
             .then(response => {
                 if (response.ok) {
-                    // Show the visual "saved" indicator
                     statusSpan.classList.remove("opacity-0");
                     setTimeout(() => {
                         statusSpan.classList.add("opacity-0");

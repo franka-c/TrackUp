@@ -73,5 +73,7 @@ Rails.application.configure do
   config.assets.check_precompiled_asset = false
   config.assets.compile = true
   config.assets.digest = false
+  # config/environments/development.rb
+  config.consider_all_requests_local = false
 
 end

@@ -1,4 +1,4 @@
-<div class="max-w-2xl mx-auto text-center">
+<div class="max-w-2xl mx-auto text-center relative">
   <% if notice %>
     <div class="mb-6 text-green-800 font-semibold bg-green-100 p-3 rounded-lg shadow">
       <%= notice %>
@@ -11,9 +11,46 @@
   <%= link_to "https://kekspay.hr/joinevent?eventcode=PhbDiIVaFb", target: "_blank" do %>
     <%= image_tag "keks.png", alt: "View race info", class: "mx-auto mb-6 rounded-xl shadow-md w-32 hover:opacity-90 transition" %>
   <% end %>
-  <p class="text-lg text-gray-700 mb-6">Mihovil Stamičar <br>IBAN: HR7623400093220506240</p>
+  <button id="qr-button" class="relative inline-flex items-center bg-green-800 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition">
+    <span class="font-medium pb-2">Get me the QR code</span>
+    <span class="absolute bottom-1 right-2 text-xs">Powered by I.V.</span>
+  </button>
+  <p class="text-lg text-gray-700 mb-6 pt-2">Mihovil Stamičar <br>IBAN: HR7623400093220506240</p>
 
-  <a href="https://snopljak.com/" target="_blank" class="inline-block bg-green-800 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition">
+  <a href="https://snopljak.com/" target="_blank" class="inline-block bg-green-800 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition mb-4">
     View Race Info
   </a>
+  <!-- Button to trigger QR modal -->
+
 </div>
+
+<!-- QR Code Modal -->
+<div id="qr-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg p-6 max-w-sm w-full relative">
+    <button id="qr-close" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+    <h3 class="text-lg font-bold mb-4">QR Code</h3>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://kekspay.hr/joinevent?eventcode=PhbDiIVaFb" alt="QR Code" class="mx-auto">
+  </div>
+</div>
+
+<!-- Modal Toggle Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('qr-button');
+        var modal = document.getElementById('qr-modal');
+        var close = document.getElementById('qr-close');
+
+        btn.addEventListener('click', function() {
+            modal.classList.remove('hidden');
+        });
+        close.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+        // Close modal when clicking outside content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+</script>
